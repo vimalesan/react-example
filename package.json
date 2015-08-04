@@ -4,6 +4,7 @@
   "description": "A chat example to showcase how to use `socket.io` with a static `express` server with `async` for control flow.",
   "main": "server.js",
   "repository": "",
+  "scripts":{"build": "./node_modules/.bin/webpack"},
   "author": "Mostafa Eweda <mo.eweda@gmail.com>",
   "dependencies": {
     "react":"0.13.3",
