@@ -2,10 +2,6 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var ContactConstants = require('../constants/ContactConstants');
 
 var ContactActions = {
-
-  /**
-   * @param  {string} text
-   */
   createForm: function() {
      
     AppDispatcher.dispatch({

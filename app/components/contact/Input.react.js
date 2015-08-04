@@ -8,6 +8,15 @@ var Input = React.createClass({
                 
             </div>
         );
+  },
+  shouldComponentUpdate:function(np,ns){
+    if(np.value!=this.props.value)
+    {
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 });
 module.exports=Input;
