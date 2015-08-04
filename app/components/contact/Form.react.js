@@ -5,11 +5,13 @@ var Form = React.createClass({
    
    
   render: function() {
-     
-      var fields=this.props.formFields.map(function(field){
+      var formFields=this.props.formFields;
+     var keys=Object.keys(formFields);
+      var fields=keys.map(function(key){
+          var field=formFields[key];
           return <Input {...field} {...this.props.actions}/>
       }.bind(this));
-    return (
+    return ( 
             <div>
                 <form>
                     {fields}

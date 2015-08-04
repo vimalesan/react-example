@@ -8,12 +8,12 @@ var ContactActions = {
       actionType: ContactConstants.CONTACT_CREATE
     });
   },
-  onChange:function(field){
+  onChange:function(id,value){
     
      AppDispatcher.dispatch({
       actionType: ContactConstants.SET_FIELD,
-      field:field,
-      value:event.target.value
+      id:id,
+      value:value
     });
   }
 }

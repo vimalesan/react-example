@@ -34,22 +34,20 @@ var ContactStore = assign({}, EventEmitter.prototype, {
   }
 });
 function setContactFields(){
-    for(var i=0;i<5;i++){
-            var ob={
+    var ob={};
+    for(var i=0;i<1000;i++){
+          var id="t"+i;
+            ob[id]={
                     type:"text",
                     id:"t"+i,
                     value:"test"+i
                     };
-            _contactFields.push(ob);
+            
         }
+        _contactFields=ob;
 }
-function setField(fieldObj,value){
-  _contactFields.map(function(field){
-      if(field.id==fieldObj.id){
-      field.value=value;
-      return;
-      }
-  });
+function setField(id,value){
+  _contactFields[id].value=value;
 }
 // Register callback to handle all updates
 AppDispatcher.register(function(action) {
@@ -63,8 +61,8 @@ AppDispatcher.register(function(action) {
       break;
         case ContactConstants.SET_FIELD:
           console.log(action)
-          setField(action.field,action.value);
-          ContactStore.emitValue();
+          setField(action.id,action.value);
+          ContactStore.emitChange();
       break;
   } 
 

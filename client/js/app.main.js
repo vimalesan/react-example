@@ -20513,22 +20513,20 @@
 	  }
 	});
 	function setContactFields(){
-	    for(var i=0;i<5;i++){
-	            var ob={
+	    var ob={};
+	    for(var i=0;i<1000;i++){
+	          var id="t"+i;
+	            ob[id]={
 	                    type:"text",
 	                    id:"t"+i,
 	                    value:"test"+i
 	                    };
-	            _contactFields.push(ob);
+	            
 	        }
+	        _contactFields=ob;
 	}
-	function setField(fieldObj,value){
-	  _contactFields.map(function(field){
-	      if(field.id==fieldObj.id){
-	      field.value=value;
-	      return;
-	      }
-	  });
+	function setField(id,value){
+	  _contactFields[id].value=value;
 	}
 	// Register callback to handle all updates
 	AppDispatcher.register(function(action) {
@@ -20542,8 +20540,8 @@
 	      break;
 	        case ContactConstants.SET_FIELD:
 	          console.log(action)
-	          setField(action.field,action.value);
-	          ContactStore.emitValue();
+	          setField(action.id,action.value);
+	          ContactStore.emitChange();
 	      break;
 	  } 
 
@@ -21333,22 +21331,18 @@
 	var ContactConstants = __webpack_require__(164);
 
 	var ContactActions = {
-
-	  /**
-	   * @param  {string} text
-	   */
 	  createForm: function() {
 	     
 	    AppDispatcher.dispatch({
 	      actionType: ContactConstants.CONTACT_CREATE
 	    });
 	  },
-	  onChange:function(field){
+	  onChange:function(id,value){
 	    
 	     AppDispatcher.dispatch({
 	      actionType: ContactConstants.SET_FIELD,
-	      field:field,
-	      value:event.target.value
+	      id:id,
+	      value:value
 	    });
 	  }
 	}
@@ -21360,16 +21354,18 @@
 
 	/** @jsx React.DOM */var React = __webpack_require__(1);
 	var Input = __webpack_require__(169);
-	var InputContainer= __webpack_require__(170)
+	var InputContainer= __webpack_require__(170);
 	var Form = React.createClass({displayName: "Form",
 	   
 	   
 	  render: function() {
-	     
-	      var fields=this.props.formFields.map(function(field){
-	          return React.createElement(InputContainer, React.__spread({},  field,  this.props.actions))
+	      var formFields=this.props.formFields;
+	     var keys=Object.keys(formFields);
+	      var fields=keys.map(function(key){
+	          var field=formFields[key];
+	          return React.createElement(Input, React.__spread({},  field,  this.props.actions))
 	      }.bind(this));
-	    return (
+	    return ( 
 	            React.createElement("div", null, 
 	                React.createElement("form", null, 
 	                    fields
@@ -21386,15 +21382,29 @@
 
 	/** @jsx React.DOM */var React = __webpack_require__(1);
 	var Input = React.createClass({displayName: "Input",
+	  change:function(event){
+	    this.props.onChange(this.props.id,event.target.value);
+	  },
 	  render: function() {
+	    var field=this.props;
+	    console.dir("rerender");
 	    return (
 	            React.createElement("div", null, 
-	                React.createElement("label", null, this.props.id), 
-	                React.createElement("input", {type: "text", name: this.props.id, value: this.props.value, id: this.props.id, onChange: this.props.onChange})
+	                React.createElement("label", null, field.id), 
+	                React.createElement("input", {type: "text", name: field.id, value: field.value, id: field.id, onChange: this.change})
 	                
 	            )
 	        );
-	  }
+	  }/*,
+	  shouldComponentUpdate:function(np,ns){
+	    if(np.value!=this.props.value)
+	    {
+	      return true;
+	    }
+	    else{
+	      return false;
+	    }
+	  }*/
 	});
 	module.exports=Input;
 
