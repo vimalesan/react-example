@@ -9,9 +9,9 @@
 
 var React = require('react');
 
-var ContactForm = require('./components/contact/ContactForm.react');
+var TodoApp = require('./components/TodoApp.react');
 
 React.render(
-  <ContactForm />,
-  document.getElementById('main')
+  <TodoApp />,
+  document.getElementById('todoapp')
 );

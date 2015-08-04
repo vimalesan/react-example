@@ -7,6 +7,10 @@
   "author": "Mostafa Eweda <mo.eweda@gmail.com>",
   "dependencies": {
     "react":"0.13.3",
+    "flux":"2.0.3",
+    "keymirror": "~0.1.0",
+    "object-assign": "^1.0.0",
+    "react-router":"0.13.1",
     "async": "~0.2.8",
     "express": "~3.2.4",
     "socket.io": "~0.9.14",
